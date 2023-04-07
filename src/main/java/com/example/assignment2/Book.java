@@ -11,11 +11,11 @@ public class Book {
     private String fileName;
 
     public Book(String name, String authorFirstName, String authorLastName, String ISBN, double price) {
-        this.name = name;
-        this.authorFirstName = authorFirstName;
-        this.authorLastName = authorLastName;
-        this.ISBN = ISBN;
-        this.price = price;
+        setName(name);
+        setAuthorFirstName(authorFirstName);
+        setAuthorLastName(authorLastName);
+        setISBN(ISBN);
+        setPrice(price);
         setFileName();
     }
 
@@ -24,8 +24,28 @@ public class Book {
      */
     public String getName() {return name;    }
 
+    /**
+     *
+     * @param name accepts any book name longer than 2 characters
+     *             will capitalize the first letter of every word after a space
+     */
     public void setName(String name) {
-        this.name = name;
+        while(name.contains("  ")){
+            //removes any instance of double space and prevents entering "    " as a valid name
+            name=name.replace("  "," ");
+        }
+        if(name.length()>2) {
+            String words[] = name.split(" ");
+            String properName = "";
+            for (String word : words) {
+                word = word.toLowerCase();
+                word = word.substring(0, 1).toUpperCase() + word.substring(1);
+                properName += word + " ";
+            }
+            properName = properName.trim();
+            this.name = properName;
+        }
+        else throw new IllegalArgumentException(name + " is invalid, name of the book must be longar than 2 characters");
     }
 
     /**
@@ -33,7 +53,13 @@ public class Book {
      */
     public String getAuthorFirstName() {return authorFirstName;    }
 
+    /**
+     *
+     * @param firstName sets the first name of the author
+     *                  capitalizes the first letter and lowercase the rest
+     */
     public void setAuthorFirstName(String firstName) {
+        firstName = firstName.replace(" ","");
         if(firstName.length()>2) {
             firstName = firstName.toLowerCase();
             firstName = firstName.substring(0,1).toUpperCase() +firstName.substring(1);
@@ -49,7 +75,13 @@ public class Book {
      */
     public String getAuthorLastName() {return authorLastName;    }
 
+    /**
+     *
+     * @param lastName sets the last name of the author
+     *                  capitalizes the first letter and lowercase the rest
+     */
     public void setAuthorLastName(String lastName) {
+        lastName = lastName.replace(" ","");
         if(lastName.length()>2) {
             lastName = lastName.toLowerCase();
             lastName = lastName.substring(0,1).toUpperCase() + lastName.substring(1);
@@ -122,5 +154,9 @@ public class Book {
 
     public Image getImage(){
         return new Image(Book.class.getResourceAsStream(fileName));
+    }
+
+    public String toString(){
+        return this.name + " by " + this.authorFirstName + " " + this.authorLastName;
     }
 }

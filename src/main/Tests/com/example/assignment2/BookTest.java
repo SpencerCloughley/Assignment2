@@ -19,18 +19,30 @@ public class BookTest {
     public void setName() {
         assertEquals("Berserk",Berserk.getName());
         assertEquals("The Institute",TheInstitute.getName());
+        TheInstitute.setName("the    institute");
+        assertEquals("The Institute",TheInstitute.getName());
+        Berserk.setName("berserk");
+        assertEquals("Berserk",Berserk.getName());
+        Assertions.assertThrows(IllegalArgumentException.class,()->{Berserk.setName("     ");});
     }
 
     @org.junit.Test
     public void setAuthorFirstName() {
-        Berserk.setAuthorFirstName("Kentaro");
         assertEquals("Kentaro",Berserk.getAuthorFirstName());
         assertEquals("Stephen",TheInstitute.getAuthorFirstName());
+        Berserk.setAuthorFirstName("KenTAro");
+        assertEquals("Kentaro",Berserk.getAuthorFirstName());
+        Assertions.assertThrows(IllegalArgumentException.class,()->{Berserk.setAuthorFirstName("  ");});
+        Assertions.assertThrows(IllegalArgumentException.class,()->{Berserk.setAuthorFirstName("   ");});
     }
 
     @org.junit.Test
     public void setAuthorLastName() {
         assertEquals("Miura",Berserk.getAuthorLastName());
+        Berserk.setAuthorLastName("miuRA ");
+        assertEquals("Miura",Berserk.getAuthorLastName());
+        Assertions.assertThrows(IllegalArgumentException.class,()->{Berserk.setAuthorLastName("  ");});
+        Assertions.assertThrows(IllegalArgumentException.class,()->{Berserk.setAuthorLastName("    ");});
     }
 
     @org.junit.Test
@@ -50,5 +62,6 @@ public class BookTest {
 
     @org.junit.Test
     public void setFileName() {
+        assertEquals("images/9781506711980.png",Berserk.getFileName());
     }
 }
