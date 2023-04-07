@@ -71,6 +71,7 @@
                               <Label fx:id="kdaLabel" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
+                        <Label text="Champions" />
                         <ListView fx:id="championList" prefHeight="200.0" prefWidth="200.0">
                            <VBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -84,7 +85,7 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="-6.0" layoutY="402.0" prefHeight="76.0" prefWidth="742.0">
          <children>
-            <Button fx:id="btnNextTeam" mnemonicParsing="false" onAction="#nextTeam" text="Next Team" />
+            <Button fx:id="btnAddPlayer" mnemonicParsing="false" onAction="#addPlayer" text="Add Player" />
          </children>
       </HBox>
    </children>

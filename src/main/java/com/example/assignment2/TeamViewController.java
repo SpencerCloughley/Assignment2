@@ -17,10 +17,7 @@ public class TeamViewController implements Initializable {
     private Label assistsLabel;
 
     @FXML
-    private Button btnNextPlayer;
-
-    @FXML
-    private Button btnNextTeam;
+    private Button btnAddPlayer;
 
     @FXML
     private ListView<?> championList;
@@ -59,12 +56,7 @@ public class TeamViewController implements Initializable {
     private Label usernameLabel;
 
     @FXML
-    void nextPlayer(ActionEvent event) {
-
-    }
-
-    @FXML
-    void nextTeam(ActionEvent event) {
+    void addPlayer(ActionEvent event) {
 
     }
 
