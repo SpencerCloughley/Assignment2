@@ -61,9 +61,7 @@ public class Book {
     public void setAuthorFirstName(String firstName) {
         firstName = firstName.replace(" ","");
         if(firstName.length()>2) {
-            firstName = firstName.toLowerCase();
-            firstName = firstName.substring(0,1).toUpperCase() +firstName.substring(1);
-            firstName = firstName.trim();
+            firstName = formatName(firstName);
             this.authorFirstName = firstName;
         }
         else
@@ -83,9 +81,7 @@ public class Book {
     public void setAuthorLastName(String lastName) {
         lastName = lastName.replace(" ","");
         if(lastName.length()>2) {
-            lastName = lastName.toLowerCase();
-            lastName = lastName.substring(0,1).toUpperCase() + lastName.substring(1);
-            lastName = lastName.trim();
+            lastName = formatName(lastName);
             this.authorLastName = lastName;
         }
         else
@@ -105,8 +101,8 @@ public class Book {
      *             must start with 978 and is 13 digits long
      */
     public void setISBN(String ISBN) {
-        if(ISBN.substring(0,3).equals("978")) {
-            if (ISBN.length() == 13) {
+        if(ISBN.length() == 13) {
+            if (ISBN.substring(0,3).equals("978")) {
                 for (int i = 0; i < ISBN.length(); i++) {
                     if (!Character.isDigit(ISBN.charAt(i))) {
                         throw new IllegalArgumentException(ISBN + " is invalid, ISBN must be all numbers, 13 numbers long and start with 978");
@@ -158,5 +154,11 @@ public class Book {
 
     public String toString(){
         return this.name + " by " + this.authorFirstName + " " + this.authorLastName;
+    }
+    private String formatName(String name){
+        name = name.toLowerCase();
+        name = name.substring(0,1).toUpperCase() + name.substring(1);
+        name = name.trim();
+        return name;
     }
 }

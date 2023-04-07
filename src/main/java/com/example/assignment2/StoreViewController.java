@@ -67,9 +67,11 @@ public class StoreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Book Berserk=new Book("Berserk", "Kentaro","Miura","9781506711980",65.99);
         Book TheInstitute=new Book("The Institute","Stephen","King","9781982110581",30.99);
+        Book DemonSlayer=new Book("Demon Slayer Volume 1","Koyoharu","Gotouge","9781974700523",12.99);
         ArrayList<Book> stock = new ArrayList<>();
         stock.add(Berserk);
         stock.add(TheInstitute);
+        stock.add(DemonSlayer);
         Indigo=new Store("Indigo",stock);
         updateLabels();
         displayBook(Indigo.getStock().get(0));
@@ -77,6 +79,7 @@ public class StoreViewController implements Initializable {
     private void updateLabels(){
         bookList.setItems(FXCollections.observableArrayList(Indigo.getStock()));
         storeLabel.setText(Indigo.getName());
+        errorLabel.setText("");
     }
 
     private void displayBook(Book display){
@@ -88,22 +91,40 @@ public class StoreViewController implements Initializable {
     }
     @FXML
     void addBook(ActionEvent event) {
-        String title=titleField.getText();
-        String author=authorField.getText();
-        double price=Double.parseDouble(priceField.getText());
-        String ISBN = ISBNField.getText();
-        try{
-
+        try {
+            String title = titleField.getText();
+            String author = authorField.getText();
+            double price = Double.parseDouble(priceField.getText());
+            String ISBN = ISBNField.getText();
+            String names[] = author.split(" ");
+            if(names.length>1) {
+                String authorFirst = names[0];
+                String authorLast = names[1];
+                try {
+                    Book temp = new Book(title, authorFirst, authorLast, ISBN, price);
+                    Indigo.getStock().add(temp);
+                } catch (Exception e) {
+                    errorLabel.setText(e.getMessage());
+                }
+                updateLabels();
+            }
+            else {
+                errorLabel.setText("Please enter first and last name for author");
+            }
         }catch (Exception e){
-
+            errorLabel.setText("Please fill out all fields correctly");
         }
-
     }
 
     @FXML
     void changeBook(MouseEvent event) {
-        Book current= bookList.getSelectionModel().getSelectedItem();
-        displayBook(current);
+        try {
+            Book current = bookList.getSelectionModel().getSelectedItem();
+            displayBook(current);
+        }
+        catch (Exception e){
+
+        }
     }
 }
 
